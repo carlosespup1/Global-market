@@ -6,7 +6,28 @@ import { Context } from "../store/appContext";
 
 export const FavoritosCard = props => {
 	const { store, actions } = useContext(Context);
+	const OnClickEvent = e => {
+		const Id_Producto = props.id;
 
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/json");
+
+		var raw = JSON.stringify({
+			id: 33
+		});
+
+		var requestOptions = {
+			method: "DELETE",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow"
+		};
+
+		fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart", requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log("error", error));
+	};
 	return (
 		<div className="tarjeta">
 			<div className="card" style={{ width: "16rem" }}>
@@ -17,15 +38,9 @@ export const FavoritosCard = props => {
 						<p className="Precio"> Precio: ₡{props.price}</p>
 						<p className="Precio"> Supermercado:</p>
 					</ul>
-					{/* <div className="modal_mov">
-						<Modal1
-							id={props.id}
-							image={props.image}
-							product_name={props.product_name}
-							category={props.category}
-							price={props.price}
-						/>
-					</div> */}
+					<button type="button" className="btn btn-outline-success float-right">
+						<i className="fa fa-trash" onClick={e => OnClickEvent(e)} />
+					</button>
 				</div>
 			</div>
 		</div>

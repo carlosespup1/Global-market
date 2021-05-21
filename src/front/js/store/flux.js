@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			products: [],
 			supermarket: [],
 			cupons: [],
-			favorites: []
+			fav: []
 		},
 		actions: {
 			logged: () => {
@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// },
 
 			loadProducts: async () => {
-				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/product";
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart";
 				const response = await fetch(url);
 				const data = await response.json();
 				console.log("fluxprod", data);
@@ -43,7 +43,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ supermarket: data.Results });
 			},
 
-			//Pendiente agregar la ruta
 			loadCupons: async () => {
 				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/coupon";
 				const response = await fetch(url);
@@ -51,18 +50,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("data", data);
 				setStore({ coupons: data.Results });
 			},
-			// Obtener Favoritos
-			loadFavorites: async () => {
-				var requestOptions = {
-					method: "GET",
-					redirect: "follow"
-				};
 
-				fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart", requestOptions)
-					.then(response => response.text())
-					.then(result => console.log(result))
-					.catch(error => console.log("error", error));
-				setStore({ favorites: data.Results });
+			loadFav: async () => {
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart";
+				const response = await fetch(url);
+				const data = await response.json();
+				console.log("fav", data);
+				setStore({ fav: data.Results });
 			},
 
 			AgregarFavoritos: (id, product_name) => {

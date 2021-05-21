@@ -59,7 +59,7 @@ export const Navbar1 = () => {
 						{store.login && (
 							<Link to={"/favorites"}>
 								<Button variant="in1" href="#home" color="white">
-									Favoritos {store.favorites.length}
+									Favoritos {store.fav.length}
 								</Button>
 							</Link>
 						)}
