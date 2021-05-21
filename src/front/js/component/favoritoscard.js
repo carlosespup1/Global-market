@@ -6,14 +6,14 @@ import { Context } from "../store/appContext";
 
 export const FavoritosCard = props => {
 	const { store, actions } = useContext(Context);
-	const OnClickEvent = e => {
+	const deleteFav = () => {
 		const Id_Producto = props.id;
 
 		var myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
 
 		var raw = JSON.stringify({
-			id: 33
+			id: props.id
 		});
 
 		var requestOptions = {
@@ -39,7 +39,7 @@ export const FavoritosCard = props => {
 						<p className="Precio"> Supermercado:</p>
 					</ul>
 					<button type="button" className="btn btn-outline-success float-right">
-						<i className="fa fa-trash" onClick={e => OnClickEvent(e)} />
+						<i className="fa fa-trash" onClick={() => deleteFav()} />
 					</button>
 				</div>
 			</div>

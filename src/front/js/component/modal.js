@@ -9,7 +9,7 @@ export function Modal1(props) {
 	console.log();
 	//Agregar a favoritos por evento---------------------------------------------------------------->//
 
-	const OnClickEvent = e => {
+	const OnClickEvent = () => {
 		const Id_Producto = props.id;
 		//console.log(store.favorites.filter(Dif_Id_Producto => Dif_Id_Producto === Id_Producto));
 		if (store.fav.filter(Dif_Id_Producto => Dif_Id_Producto === Id_Producto).length > 0) {
@@ -62,7 +62,7 @@ export function Modal1(props) {
 			)}
 			{store.login && (
 				<button type="button" className="btn btn-outline-success float-right">
-					<i className="fas fa-heart" onClick={e => OnClickEvent(e)} />
+					<i className="fas fa-heart" onClick={() => OnClickEvent()} />
 				</button>
 			)}
 			<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
