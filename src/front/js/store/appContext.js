@@ -34,6 +34,7 @@ const injectContext = PassedComponent => {
 			state.actions.loadSupermarket();
 			state.actions.loadFav();
 			// state.actions.deleteFav();
+			state.actions.loadHome();
 			//state.actions.loadFavorites(); // <---- calling this function from the flux.js actions
 		}, []);
 

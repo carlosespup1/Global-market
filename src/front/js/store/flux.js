@@ -1,3 +1,5 @@
+import { data } from "jquery";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -6,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			products: [],
 			supermarket: [],
 			cupons: [],
-			fav: []
+			fav: [],
+			search: []
 		},
 		actions: {
 			logged: () => {
@@ -29,7 +32,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// },
 
 			loadProducts: async () => {
-				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart";
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/product";
 				const response = await fetch(url);
 				const data = await response.json();
 				console.log("fluxprod", data);
@@ -37,14 +40,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			loadSupermarket: async () => {
-				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/market";
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/market";
 				const response = await fetch(url);
 				const data = await response.json();
 				setStore({ supermarket: data.Results });
 			},
 
+			loadHome: async () => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					product: "Arroz",
+					location: "San Jose"
+				});
+
+				var requestOptions = {
+					method: "POST",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+
+				const fetchData = await fetch(
+					"https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/product",
+					requestOptions
+				);
+				const data = await fetchData.json();
+				console.log("data", data);
+				setStore({ search: data.Result });
+			},
+
 			loadCupons: async () => {
-				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/coupon";
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/coupon";
 				const response = await fetch(url);
 				const data = await response.json();
 				console.log("data", data);
@@ -52,7 +80,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			loadFav: async () => {
-				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart";
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart";
 				const response = await fetch(url);
 				const data = await response.json();
 				console.log("fav", data);
@@ -60,15 +88,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			AgregarFavoritos: (id, product_name) => {
-				setStore({ favorites: getStore().favorites.concat([id, product_name]) });
+				setStore({ fav: getStore().fav.concat([id, product_name]) });
 			},
 			//Probar remover favoritos.
 			RemoverFavoritos: index => {
-				const NuevoArrayFavoritos = getStore().favorites.filter((item, index) => {
+				const NuevoArrayFavoritos = getStore().fav.filter((item, index) => {
 					return index !== indice;
 				});
 
-				setStore({ favorites: NuevoArrayFavoritos });
+				setStore({ fav: NuevoArrayFavoritos });
 			}
 		}
 	};
