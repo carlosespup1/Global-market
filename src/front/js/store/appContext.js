@@ -33,7 +33,6 @@ const injectContext = PassedComponent => {
 			state.actions.loadCupons();
 			state.actions.loadSupermarket();
 			state.actions.loadFav();
-			state.actions.loadHome();
 			//state.actions.loadFavorites(); // <---- calling this function from the flux.js actions
 		}, []);
 
