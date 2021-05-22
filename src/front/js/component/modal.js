@@ -26,7 +26,7 @@ export function Modal1(props) {
 			myHeaders.append("Content-Type", "application/json");
 
 			var raw = JSON.stringify({
-				username: "125",
+				username: "123",
 				product: props.id
 			});
 
