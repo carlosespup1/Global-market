@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 import { Navbar, Nav, Dropdown, DropdownButton, Button } from "react-bootstrap";
 
 export const Navbar1 = () => {
+	const { store, actions } = useContext(Context);
+
+	console.log("estoy en login", store.login);
 	return (
 		<>
 			<Navbar className="navigation" collapseOnSelect expand="lg" bg="transparent" variant="dark" text="white">
@@ -21,44 +25,65 @@ export const Navbar1 = () => {
 							<Button variant="in1" href="#home" color="white">
 								Inicio
 							</Button>
-						</Link>{" "}
-						<Link to={"/categorias"}>
-							<Button variant="in1" href="#home" color="white">
-								Categorias
-							</Button>
-						</Link>{" "}
-						<Link to={"/cupones"}>
-							<Button variant="in1" href="#home" color="white">
-								Cupones
-							</Button>
 						</Link>
-						<Link to={"/register"}>
-							<Button variant="in1" href="#home" color="white">
-								Registro
-							</Button>
-						</Link>
-						<Link to={"/login"}>
-							<Button variant="in1" href="#home" color="white">
-								Ingresar
-							</Button>
-						</Link>
-						<div className="mb-2 text-white">
-							{["left"].map(direction => (
-								<DropdownButton
-									key={direction}
-									id={`dropdown-button-drop-${direction}`}
-									drop={direction}
+						{!store.login && (
+							<Link to={"/login"}>
+								<Button variant="in1" href="#home" color="white">
+									Ingresar
+								</Button>
+							</Link>
+						)}
+
+						{!store.login && (
+							<Link to={"/register"}>
+								<Button variant="in1" href="#home" color="white">
+									Registro
+								</Button>
+							</Link>
+						)}
+
+						{store.login && (
+							<Link to={"/categorias"}>
+								<Button variant="in1" href="#home" color="white">
+									Categorías
+								</Button>
+							</Link>
+						)}
+						{store.login && (
+							<Link to={"/cupones"}>
+								<Button variant="in1" href="#home" color="white">
+									Cupones
+								</Button>
+							</Link>
+						)}
+						{store.login && (
+							<Link to={"/favorites"}>
+								<Button variant="in1" href="#home" color="white">
+									Favoritos {store.favorites.length}
+								</Button>
+							</Link>
+						)}
+
+						{store.login && (
+							<Link to={"/"}>
+								<Button
 									variant="in1"
-									title=""
-									text="white">
-									<Link to={"/"}>
-										<Dropdown.Item eventKey="1">Favoritos</Dropdown.Item>
-									</Link>
-									<Dropdown.Divider />
-									<Dropdown.Item eventKey="4">Cerrar sesión</Dropdown.Item>
-								</DropdownButton>
-							))}
-						</div>
+									href="#home"
+									color="white"
+									onClick={() => {
+										actions.logout();
+										console.log("cierro secion", store.login);
+										alert("Ha cerrado sesión correctamente");
+									}}>
+									Cerrar sesión
+								</Button>
+							</Link>
+						)}
+						<Link to={"/contact"}>
+							<Button variant="in1" href="#home" color="white">
+								Contáctenos
+							</Button>
+						</Link>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

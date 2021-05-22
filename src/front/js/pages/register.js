@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -36,7 +37,7 @@ export const Register1 = () => {
 	};
 
 	const registrarUsuario = () => {
-		fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/register", requestOptions)
+		fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/register", requestOptions)
 			.then(response => response.text())
 			.then(result => console.log(result))
 			.catch(error => console.log("error", error));
@@ -52,7 +53,7 @@ export const Register1 = () => {
 						<h3>Registrarme</h3>
 					</div>
 					<div className="card-body">
-						<form onSubmit={registrarUsuario()}>
+						<form onSubmit={registrarUsuario}>
 							<div className="input-group form-group">
 								<div className="input-group-prepend">
 									<span className="input-group-text">
@@ -123,7 +124,16 @@ export const Register1 = () => {
 								/>
 							</div>
 							<div className="form-group">
-								<input type="Submit" value="Registrar" className="btn float-right login_btn" />
+								<Link to={"/login"} href="#">
+									<input
+										type="submit"
+										value="Registrar"
+										className="btn float-right login_btn"
+										onClick={() => {
+											alert("Registro completo!!!");
+										}}
+									/>
+								</Link>
 							</div>
 							<div className="card-footer">
 								<div className="d-flex justify-content-center links">

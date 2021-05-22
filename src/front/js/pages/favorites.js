@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Globalcard } from "../component/globalcard";
+import { FavoritosCard } from "../component/favoritoscard";
+import { Context } from "../store/appContext";
 
 export const Favoritos = () => {
+	const { store, actions } = useContext(Context);
+
 	return (
 		<>
-			<p className="h2 mx-auto py-4 font-weight-light">Tus productos favoritos</p>
+			<div className="container-fluid">
+				<div className="categoriaspage row">
+					<h1 className="promo1 h2 mx-auto py-4 font-weight-light">
+						<strong>Favoritos</strong>
+					</h1>
+					<div className="col-lg-12 productos">
+						{store.favorites
+							? store.favorites.map((item, index) => {
+									console.log("favorites", item);
 
-			<div className="whole_content">
-				<div className="contenedor_fav1">
-					<Globalcard />
-					<Globalcard />
-					<Globalcard />
-					<Globalcard />
-					<Globalcard />
-				</div>
-				<div className="contenedor_fav2">
-					<Globalcard />
-					<Globalcard />
-					<Globalcard />
-					<Globalcard />
-					<Globalcard />
+									return (
+										<div key={index}>
+											<FavoritosCard
+												id={item.id}
+												price={item.product.price}
+												product_name={item["product.product_name"]}
+												image={item["product.image"]}
+												category={item["product.category"]}
+											/>
+										</div>
+									);
+							  })
+							: "No favorites here"}
+					</div>
 				</div>
 			</div>
 		</>

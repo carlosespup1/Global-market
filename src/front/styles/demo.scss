@@ -11,6 +11,24 @@
     margin: 10px !important;
 };
 
+.productos{
+    display: flex;
+    flex-wrap:wrap;
+    overflow-x: auto;
+    min-height: 600px;
+    overflow-y: hidden;
+    margin: 10px !important;
+    align-content: center;
+};
+
+//CSS de cards de cupones
+.categorias1{
+    flex-direction: column;
+    overflow-x: hidden;
+    min-height: 600px;
+    overflow-y: auto;
+    margin: 10px !important;
+};
 
 //CSS del Navbar
 .nav-item {
@@ -31,11 +49,10 @@ background-color: rgba(191, 202, 226, 0.5) !important;
 
 
 //CSS del Footer
-.ft1{
-display: flex;
+.footer{
+ flex-direction: column;
 align-items: center;
 justify-content: center;
-width: 100%;
 background-color: rgba(191, 202, 226, 0.5) !important;
 }
 .f1{
@@ -75,17 +92,8 @@ color: #60b626;
     box-sizing: border-box;   
 }
 
-/*.body {
-    background-color: #e3e3e3;
-    width: 100%;
-    height:100vh;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}*/
 .slider {
     background-color: white;
-    //width: 1000px;
     height: 100px;
     overflow: hidden;
     position: relative;

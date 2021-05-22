@@ -1,10 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Component } from "react";
 import "../../styles/home.scss";
 import { Promociones } from "../component/promociones";
 import { Cinta } from "../component/cinta";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Home = () => {
+	const { store, actions } = useContext(Context);
+	const [producto, setProducto] = useState("");
+	const [localizacion, setLocalizacion] = useState("");
+
+	const busqueda = () => {
+		actions.loadSearch(producto, localizacion);
+	};
+
 	return (
 		<>
 			<div className="contenedor container-fluid imagen-fondo">
@@ -22,6 +31,7 @@ export const Home = () => {
 										placeholder="¿Qué estás buscando?"
 										aria-label="Recipient's username"
 										aria-describedby="basic-addon2"
+										onChange={e => setProducto(e.target.value)}
 									/>
 									<div className="input-group-append mx-auto">
 										<span className="input-group-text" id="basic-addon2">
@@ -37,10 +47,14 @@ export const Home = () => {
 									placeholder="¿Dónde estás ubicado?"
 									aria-label="Recipient's username"
 									aria-describedby="basic-addon2"
+									onChange={e => setLocalizacion(e.target.value)}
 								/>
 							</div>
 							<Link to={"/products"}>
-								<button type="submit" className="boton mx-auto btn btn-warning btn-lg btn-block">
+								<button
+									type="submit"
+									className="boton mx-auto btn btn-warning btn-lg btn-block"
+									onClick={e => busqueda()}>
 									Iniciar búsqueda
 								</button>
 							</Link>
@@ -54,14 +68,27 @@ export const Home = () => {
 			</div>
 
 			<h1 className="Promociones text-center py-4 font-weight-light">Promociones</h1>
-			<div className="promos cards d-flex justify-content-center">
-				<Promociones />
-				<Promociones />
-				<Promociones />
-				<Promociones />
-				<Promociones />
-				<Promociones />
-				<Promociones />
+			<div className="col-lg-12 productos">
+				{store.products
+					? store.products.map((item, index) => {
+							console.log("products", item);
+							if (item.category == "Promo") {
+								return (
+									<div key={index}>
+										<Promociones
+											id={item.id}
+											price={item.price}
+											location={item["supermarket.location"]}
+											product_name={item.product_name}
+											market_name={item["supermarket.market_name"]}
+											image={item.image}
+											category={item.category}
+										/>
+									</div>
+								);
+							}
+					  })
+					: "No prodcuts here"}
 			</div>
 		</>
 	);
