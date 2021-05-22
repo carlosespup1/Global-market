@@ -9,10 +9,10 @@ export function Modal1(props) {
 	console.log();
 	//Agregar a favoritos por evento---------------------------------------------------------------->//
 
-	const OnClickEvent = e => {
+	const OnClickEvent = () => {
 		const Id_Producto = props.id;
 		//console.log(store.favorites.filter(Dif_Id_Producto => Dif_Id_Producto === Id_Producto));
-		if (store.favorites.filter(Dif_Id_Producto => Dif_Id_Producto === Id_Producto).length > 0) {
+		if (store.fav.filter(Dif_Id_Producto => Dif_Id_Producto === Id_Producto).length > 0) {
 			//
 			//Al ser Dif_Id_Producto distinto de Id_Producto, filter no lo retorna.
 			console.log("No se agrega");
@@ -37,7 +37,7 @@ export function Modal1(props) {
 				redirect: "follow"
 			};
 
-			fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us04.gitpod.io/api/cart", requestOptions)
+			fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart", requestOptions)
 				.then(response => response.text())
 				.then(result => console.log(result))
 				.catch(error => console.log("error", error));
@@ -62,7 +62,7 @@ export function Modal1(props) {
 			)}
 			{store.login && (
 				<button type="button" className="btn btn-outline-success float-right">
-					<i className="fas fa-heart" onClick={e => OnClickEvent(e)} />
+					<i className="fas fa-heart" onClick={() => OnClickEvent()} />
 				</button>
 			)}
 			<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>

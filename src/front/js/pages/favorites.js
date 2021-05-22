@@ -14,15 +14,15 @@ export const Favoritos = () => {
 						<strong>Favoritos</strong>
 					</h1>
 					<div className="col-lg-12 productos">
-						{store.favorites
-							? store.favorites.map((item, index) => {
+						{store.fav
+							? store.fav.map((item, index) => {
 									console.log("favorites", item);
 
 									return (
 										<div key={index}>
 											<FavoritosCard
 												id={item.id}
-												price={item.product.price}
+												price={item["product.price"]}
 												product_name={item["product.product_name"]}
 												image={item["product.image"]}
 												category={item["product.category"]}
