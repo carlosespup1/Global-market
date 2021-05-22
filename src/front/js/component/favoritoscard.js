@@ -6,7 +6,10 @@ import { Context } from "../store/appContext";
 
 export const FavoritosCard = props => {
 	const { store, actions } = useContext(Context);
-
+	const deleteFav = () => {
+		console.log("Eliminar" + new Date());
+		actions.EliminarFavorito(props.id);
+	};
 	return (
 		<div className="tarjeta">
 			<div className="card" style={{ width: "16rem" }}>
@@ -17,15 +20,9 @@ export const FavoritosCard = props => {
 						<p className="Precio"> Precio: ₡{props.price}</p>
 						<p className="Precio"> Supermercado:</p>
 					</ul>
-					{/* <div className="modal_mov">
-						<Modal1
-							id={props.id}
-							image={props.image}
-							product_name={props.product_name}
-							category={props.category}
-							price={props.price}
-						/>
-					</div> */}
+					<button type="button" className="btn btn-outline-success float-right" onClick={() => deleteFav()}>
+						<i className="fa fa-trash" />
+					</button>
 				</div>
 			</div>
 		</div>

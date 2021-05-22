@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			products: [],
 			supermarket: [],
 			cupons: [],
-			favorites: [],
+			fav: [],
 			search: []
 		},
 		actions: {
@@ -78,30 +78,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("data", data);
 				setStore({ coupons: data.Results });
 			},
-			// Obtener Favoritos
-			loadFavorites: async () => {
+
+			loadFav: async () => {
+				const url = "https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart";
+				const response = await fetch(url);
+				const data = await response.json();
+				console.log("fav", data);
+				setStore({ fav: data.Results });
+			},
+
+			EliminarFavorito: id => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
 				var requestOptions = {
-					method: "GET",
-					redirect: "follow"
+					method: "DELETE",
+					headers: myHeaders
 				};
 
-				fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart", requestOptions)
+				fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart/" + id, requestOptions)
 					.then(response => response.text())
-					.then(result => console.log(result))
+					.then(result => {
+						const NuevoArrayFavoritos = getStore().fav.filter((item, index) => {
+							return item.id != id;
+						});
+
+						setStore({ fav: NuevoArrayFavoritos });
+					})
 					.catch(error => console.log("error", error));
-				setStore({ favorites: data.Results });
 			},
 
 			AgregarFavoritos: (id, product_name) => {
-				setStore({ favorites: getStore().favorites.concat([id, product_name]) });
+				setStore({ fav: getStore().fav.concat([id, product_name]) });
 			},
 			//Probar remover favoritos.
 			RemoverFavoritos: index => {
-				const NuevoArrayFavoritos = getStore().favorites.filter((item, index) => {
+				const NuevoArrayFavoritos = getStore().fav.filter((item, index) => {
 					return index !== indice;
 				});
 
-				setStore({ favorites: NuevoArrayFavoritos });
+				setStore({ fav: NuevoArrayFavoritos });
 			}
 		}
 	};
