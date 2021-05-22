@@ -46,13 +46,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ supermarket: data.Results });
 			},
 
-			loadHome: async () => {
+			loadSearch: async (product, location) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 
 				var raw = JSON.stringify({
-					product: "Arroz",
-					location: "San Jose"
+					product: product,
+					location: location
 				});
 
 				var requestOptions = {
