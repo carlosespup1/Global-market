@@ -87,6 +87,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ fav: data.Results });
 			},
 
+			EliminarFavorito: id => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var requestOptions = {
+					method: "DELETE",
+					headers: myHeaders
+				};
+
+				fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart/" + id, requestOptions)
+					.then(response => response.text())
+					.then(result => {
+						const NuevoArrayFavoritos = getStore().fav.filter((item, index) => {
+							return item.id != id;
+						});
+
+						setStore({ fav: NuevoArrayFavoritos });
+					})
+					.catch(error => console.log("error", error));
+			},
+
 			AgregarFavoritos: (id, product_name) => {
 				setStore({ fav: getStore().fav.concat([id, product_name]) });
 			},

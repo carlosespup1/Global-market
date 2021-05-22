@@ -7,26 +7,8 @@ import { Context } from "../store/appContext";
 export const FavoritosCard = props => {
 	const { store, actions } = useContext(Context);
 	const deleteFav = () => {
-		const Id_Producto = props.id;
-
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", "application/json");
-
-		var raw = JSON.stringify({
-			id: props.id
-		});
-
-		var requestOptions = {
-			method: "DELETE",
-			headers: myHeaders,
-			body: raw,
-			redirect: "follow"
-		};
-
-		fetch("https://3001-moccasin-pigeon-4ixmcu8a.ws-us07.gitpod.io/api/cart", requestOptions)
-			.then(response => response.text())
-			.then(result => console.log(result))
-			.catch(error => console.log("error", error));
+		console.log("Eliminar" + new Date());
+		actions.EliminarFavorito(props.id);
 	};
 	return (
 		<div className="tarjeta">
@@ -38,8 +20,8 @@ export const FavoritosCard = props => {
 						<p className="Precio"> Precio: ₡{props.price}</p>
 						<p className="Precio"> Supermercado:</p>
 					</ul>
-					<button type="button" className="btn btn-outline-success float-right">
-						<i className="fa fa-trash" onClick={() => deleteFav()} />
+					<button type="button" className="btn btn-outline-success float-right" onClick={() => deleteFav()}>
+						<i className="fa fa-trash" />
 					</button>
 				</div>
 			</div>
