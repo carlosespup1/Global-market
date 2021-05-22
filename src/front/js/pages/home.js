@@ -7,6 +7,13 @@ import { Context } from "../store/appContext";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const [producto, setProducto] = useState("");
+	const [localizacion, setLocalizacion] = useState("");
+
+	const busqueda = () => {
+		actions.loadSearch(producto, localizacion);
+	};
+
 	return (
 		<>
 			<div className="contenedor container-fluid imagen-fondo">
@@ -24,6 +31,7 @@ export const Home = () => {
 										placeholder="¿Qué estás buscando?"
 										aria-label="Recipient's username"
 										aria-describedby="basic-addon2"
+										onChange={e => setProducto(e.target.value)}
 									/>
 									<div className="input-group-append mx-auto">
 										<span className="input-group-text" id="basic-addon2">
@@ -39,10 +47,14 @@ export const Home = () => {
 									placeholder="¿Dónde estás ubicado?"
 									aria-label="Recipient's username"
 									aria-describedby="basic-addon2"
+									onChange={e => setLocalizacion(e.target.value)}
 								/>
 							</div>
 							<Link to={"/products"}>
-								<button type="submit" className="boton mx-auto btn btn-warning btn-lg btn-block">
+								<button
+									type="submit"
+									className="boton mx-auto btn btn-warning btn-lg btn-block"
+									onClick={e => busqueda()}>
 									Iniciar búsqueda
 								</button>
 							</Link>
